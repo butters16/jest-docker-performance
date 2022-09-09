@@ -22,6 +22,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
+    "test:performance": "react-scripts test --watchAll=false --verbose --silent --coverage --ci --maxWorkers=4",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -41,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "msw": "0.38.1"
   }
 }
