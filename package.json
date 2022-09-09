@@ -24,6 +24,7 @@
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "css-loader": "^6.5.1",
     "css-minimizer-webpack-plugin": "^3.2.0",
+    "d3": "3.5.9",
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "eslint": "^8.3.0",
@@ -36,6 +37,7 @@
     "jest": "^27.4.3",
     "jest-resolve": "^27.4.2",
     "jest-watch-typeahead": "^1.0.0",
+    "jquery": "3.2.1",
     "mini-css-extract-plugin": "^2.4.5",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
@@ -68,7 +70,7 @@
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
-    "test:performance": "node scripts/test.js --watchAll=false --verbose --silent --coverage --ci --maxWorkers=4"
+    "test:performance": "TEAMCITY_VERSION='10.0' node scripts/test.js --watchAll=false --verbose --silent --coverage --ci --maxWorkers=4"
   },
   "eslintConfig": {
     "extends": [
@@ -89,21 +91,47 @@
     ]
   },
   "devDependencies": {
-    "msw": "0.38.1"
+    "browser-resolve": "1.11.3",
+    "console-error-throws-error": "1.2.1",
+    "enzyme": "3.10.0",
+    "enzyme-adapter-react-16": "1.15.0",
+    "enzyme-matchers": "7.0.2",
+    "enzyme-to-json": "3.3.5",
+    "jest-canvas-mock": "2.3.1",
+    "jest-teamcity-reporter": "0.9.0",
+    "msw": "0.38.1",
+    "resize-observer-polyfill": "1.5.1",
+    "underscore": "1.13.3",
+    "underscore.string": "2.4.0"
   },
   "jest": {
     "roots": [
       "<rootDir>/src"
     ],
     "collectCoverageFrom": [
-      "src/**/*.{js,jsx,ts,tsx}",
-      "!src/**/*.d.ts"
+      "**/*.{js,jsx,ts,tsx}"
+    ],
+    "coverageReporters": [
+      "json",
+      "lcov",
+      "text-summary",
+      "text",
+      "teamcity"
     ],
     "setupFiles": [
-      "react-app-polyfill/jsdom"
+      "react-app-polyfill/jsdom",
+      "<rootDir>/js_infra/jest/test_setup.js"
     ],
     "setupFilesAfterEnv": [
-      "<rootDir>/src/setupTests.ts"
+      "<rootDir>/src/setupTests.ts",
+      "<rootDir>/js_infra/jest/setup/canvasMock.js",
+      "<rootDir>/js_infra/jest/setup/intersectionObserver.js",
+      "<rootDir>/js_infra/jest/setup/jestDom.js",
+      "<rootDir>/js_infra/jest/setup/jQuery.js",
+      "<rootDir>/js_infra/jest/setup/scrollTo.js",
+      "<rootDir>/js_infra/jest/setup/storageMock.js",
+      "<rootDir>/js_infra/jest/setup/resizeObserver.js",
+      "<rootDir>/js_infra/jest/setup/underscore.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
@@ -111,7 +139,7 @@
     ],
     "testEnvironment": "jsdom",
     "transform": {
-      "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/config/jest/babelTransform.js",
+      "\\.[jt]sx?$": "babel-jest",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
       "^(?!.*\\.(js|jsx|mjs|cjs|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
     },
@@ -140,7 +168,10 @@
       "jest-watch-typeahead/filename",
       "jest-watch-typeahead/testname"
     ],
-    "resetMocks": true
+    "resetMocks": true,
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ]
   },
   "babel": {
     "presets": [
