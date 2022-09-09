@@ -1,3 +1,20 @@
+# CUSTOM TO THIS REPO
+This was created using
+`yarn create react-app jest-docker-performance --template redux-typescript`
+
+## Comparing running tests locally vs via Docker
+
+### Running tests locally
+`yarn install`
+
+`yarn run test:performance`
+
+### Running tests via Docker
+`docker build -t jest-docker-performance .`
+
+`docker run --rm jest-docker-performance yarn run test:performance`
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) TS template.
